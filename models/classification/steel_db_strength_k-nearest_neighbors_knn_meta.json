@@ -1,0 +1,148 @@
+{
+    "model_name": "K-Nearest Neighbors (KNN)",
+    "dataset": "steel_db",
+    "target": "strength_category",
+    "group_column": "name",
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "classes": [
+        "Low Strength",
+        "Medium Strength",
+        "High Strength"
+    ],
+    "train_metrics": {
+        "Accuracy": 0.72,
+        "Precision_macro": 0.7349,
+        "Recall_macro": 0.7419,
+        "F1_macro": 0.7348,
+        "Confusion_Matrix": [
+            [
+                441,
+                79,
+                20
+            ],
+            [
+                85,
+                722,
+                353
+            ],
+            [
+                22,
+                174,
+                722
+            ]
+        ],
+        "Classification_Report": {
+            "Low Strength": {
+                "precision": 0.8047445255474452,
+                "recall": 0.8166666666666667,
+                "f1-score": 0.8106617647058824,
+                "support": 540.0
+            },
+            "Medium Strength": {
+                "precision": 0.7405128205128205,
+                "recall": 0.6224137931034482,
+                "f1-score": 0.6763466042154567,
+                "support": 1160.0
+            },
+            "High Strength": {
+                "precision": 0.6593607305936073,
+                "recall": 0.7864923747276689,
+                "f1-score": 0.7173373075012419,
+                "support": 918.0
+            },
+            "accuracy": 0.7200152788388082,
+            "macro avg": {
+                "precision": 0.7348726922179577,
+                "recall": 0.7418576114992613,
+                "f1-score": 0.7347818921408603,
+                "support": 2618.0
+            },
+            "weighted avg": {
+                "precision": 0.725305602091453,
+                "recall": 0.7200152788388082,
+                "f1-score": 0.718424393474884,
+                "support": 2618.0
+            }
+        }
+    },
+    "test_metrics": {
+        "Accuracy": 0.6088,
+        "Precision_macro": 0.6157,
+        "Recall_macro": 0.6287,
+        "F1_macro": 0.6197,
+        "Confusion_Matrix": [
+            [
+                115,
+                36,
+                3
+            ],
+            [
+                30,
+                123,
+                98
+            ],
+            [
+                22,
+                52,
+                137
+            ]
+        ],
+        "Classification_Report": {
+            "Low Strength": {
+                "precision": 0.688622754491018,
+                "recall": 0.7467532467532467,
+                "f1-score": 0.7165109034267912,
+                "support": 154.0
+            },
+            "Medium Strength": {
+                "precision": 0.5829383886255924,
+                "recall": 0.4900398406374502,
+                "f1-score": 0.5324675324675324,
+                "support": 251.0
+            },
+            "High Strength": {
+                "precision": 0.5756302521008403,
+                "recall": 0.6492890995260664,
+                "f1-score": 0.6102449888641426,
+                "support": 211.0
+            },
+            "accuracy": 0.6087662337662337,
+            "macro avg": {
+                "precision": 0.6157304650724835,
+                "recall": 0.6286940623055878,
+                "f1-score": 0.6197411415861555,
+                "support": 616.0
+            },
+            "weighted avg": {
+                "precision": 0.6068562060550614,
+                "recall": 0.6087662337662337,
+                "f1-score": 0.605119679265277,
+                "support": 616.0
+            }
+        }
+    }
+}

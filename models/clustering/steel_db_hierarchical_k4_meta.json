@@ -1,0 +1,31 @@
+{
+    "model_type": "AgglomerativeClustering",
+    "optimal_k": 4,
+    "silhouette_score": 0.7857,
+    "adjusted_rand_index_vs_kmeans": 0.8622,
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ]
+}

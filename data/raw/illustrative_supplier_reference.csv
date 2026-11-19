@@ -1,0 +1,21 @@
+grade,category,indicative_price_usd_per_kg,supplier_type,estimate_nature,reference_date
+AISI 1010,Low-carbon steel,0.45-0.75,Mill / Service Center,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 1018,Low-carbon steel,0.50-0.80,Mill / Service Center,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 1020,Low-carbon steel,0.50-0.80,Mill / Service Center,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 1040,Medium-carbon steel,0.55-0.85,Mill / Service Center,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 1045,Medium-carbon steel,0.55-0.90,Mill / Service Center,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 1060,High-carbon steel,0.60-0.95,Mill / Service Center,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 1080,High-carbon steel,0.65-1.00,Mill / Service Center,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 1095,High-carbon steel,0.70-1.10,Mill / Service Center,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 4130,Cr-Mo alloy steel,0.80-1.20,Specialty Distributor,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 4140,Cr-Mo alloy steel,0.80-1.20,Specialty Distributor,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 4150,Cr-Mo alloy steel,0.85-1.30,Specialty Distributor,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 4340,Ni-Cr-Mo alloy steel,1.20-1.80,Specialty Distributor,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 8620,Ni-Cr-Mo alloy steel,0.85-1.25,Specialty Distributor,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 8640,Ni-Cr-Mo alloy steel,0.90-1.30,Specialty Distributor,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 6150,Cr-V alloy steel,0.90-1.35,Specialty Distributor,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 9260,Si-Mn spring steel,0.85-1.25,Specialty Distributor,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 5160,Cr spring steel,0.80-1.20,Specialty Distributor,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 52100,Cr bearing steel,1.00-1.50,Specialty Distributor,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 1215,Free-machining steel,0.55-0.85,Mill / Service Center,Illustrative reference estimate — not verified transaction price,2024-01
+AISI 12L14,Free-machining leaded steel,0.60-0.95,Mill / Service Center,Illustrative reference estimate — not verified transaction price,2024-01

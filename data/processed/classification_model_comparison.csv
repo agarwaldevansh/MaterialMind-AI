@@ -1,0 +1,8 @@
+Dataset,Model_Type,Algorithm,Test_Accuracy,Test_Precision_macro,Test_Recall_macro,Test_F1_macro,Train_Accuracy,Train_F1_macro
+steel_db,Base Classifier,Decision Tree,0.5666,0.5803,0.5926,0.578,0.6925,0.7108
+steel_db,Base Classifier,K-Nearest Neighbors (KNN),0.6088,0.6157,0.6287,0.6197,0.72,0.7348
+steel_db,Base Classifier,Support Vector Machine (SVM),0.6218,0.6293,0.6337,0.6308,0.7093,0.721
+steel_db,Base Classifier,Gaussian Naive Bayes,0.3896,0.4612,0.4082,0.3142,0.4481,0.3809
+steel_db,Ensemble,Voting Classifier (Soft),0.5942,0.6174,0.6264,0.5861,0.7032,0.7184
+steel_db,Ensemble,AdaBoost Classifier,0.6721,0.702,0.6952,0.6933,0.704,0.7194
+steel_db,Ensemble,Stacking Classifier,0.6299,0.6438,0.6528,0.6316,0.738,0.7535

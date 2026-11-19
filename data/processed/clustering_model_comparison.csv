@@ -1,0 +1,3 @@
+Dataset,Algorithm,Optimal_k,Silhouette_Score,Inertia,ARI_Agreement,Key_Characteristic
+steel_db,K-Means (k=4),4,0.812,40946.29,1.0,Centroid-based partition minimizing within-cluster variance
+steel_db,Agglomerative Hierarchical (k=4),4,0.7857,,0.8622,Tree-based hierarchical merge using Ward linkage

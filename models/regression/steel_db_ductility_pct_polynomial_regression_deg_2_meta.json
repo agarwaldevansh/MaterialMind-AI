@@ -1,0 +1,45 @@
+{
+    "model_name": "Polynomial Regression (Deg 2)",
+    "dataset": "steel_db",
+    "target": "ductility_pct",
+    "group_column": "name",
+    "train_samples": 2618,
+    "test_samples": 616,
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "train_metrics": {
+        "MAE": 3.61,
+        "MSE": 21.28,
+        "RMSE": 4.61,
+        "R2": 0.3633
+    },
+    "test_metrics": {
+        "MAE": 5.83,
+        "MSE": 76.28,
+        "RMSE": 8.73,
+        "R2": -1.4033
+    }
+}

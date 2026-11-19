@@ -1,0 +1,42 @@
+{
+    "model_name": "Gradient Descent (SGD)",
+    "dataset": "matnavi",
+    "target": "tensile_strength_mpa",
+    "group_column": "alloy_code",
+    "train_samples": 734,
+    "test_samples": 180,
+    "feature_columns": [
+        "c",
+        "si",
+        "mn",
+        "p",
+        "s",
+        "ni",
+        "cr",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "n",
+        "nb_ta",
+        "ceq",
+        "temperature_c",
+        "total_alloying_pct",
+        "carbon_equivalent_calc",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "is_elevated_temp"
+    ],
+    "train_metrics": {
+        "MAE": 43.31,
+        "MSE": 2870.38,
+        "RMSE": 53.58,
+        "R2": 0.82
+    },
+    "test_metrics": {
+        "MAE": 46.87,
+        "MSE": 3534.49,
+        "RMSE": 59.45,
+        "R2": 0.7697
+    }
+}

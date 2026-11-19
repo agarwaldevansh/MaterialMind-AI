@@ -1,0 +1,45 @@
+{
+    "model_name": "Decision Tree Regressor",
+    "dataset": "steel_db",
+    "target": "tensile_strength_mpa",
+    "group_column": "name",
+    "train_samples": 2618,
+    "test_samples": 616,
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "train_metrics": {
+        "MAE": 129.67,
+        "MSE": 31912.57,
+        "RMSE": 178.64,
+        "R2": 0.6748
+    },
+    "test_metrics": {
+        "MAE": 158.97,
+        "MSE": 49257.09,
+        "RMSE": 221.94,
+        "R2": 0.5097
+    }
+}

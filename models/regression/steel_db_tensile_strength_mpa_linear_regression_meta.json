@@ -1,0 +1,45 @@
+{
+    "model_name": "Linear Regression",
+    "dataset": "steel_db",
+    "target": "tensile_strength_mpa",
+    "group_column": "name",
+    "train_samples": 2618,
+    "test_samples": 616,
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "train_metrics": {
+        "MAE": 185.08,
+        "MSE": 58178.51,
+        "RMSE": 241.2,
+        "R2": 0.4072
+    },
+    "test_metrics": {
+        "MAE": 246.66,
+        "MSE": 106158.97,
+        "RMSE": 325.82,
+        "R2": -0.0567
+    }
+}

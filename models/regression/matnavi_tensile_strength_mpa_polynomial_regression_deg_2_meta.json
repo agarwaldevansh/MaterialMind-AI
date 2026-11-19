@@ -1,0 +1,42 @@
+{
+    "model_name": "Polynomial Regression (Deg 2)",
+    "dataset": "matnavi",
+    "target": "tensile_strength_mpa",
+    "group_column": "alloy_code",
+    "train_samples": 734,
+    "test_samples": 180,
+    "feature_columns": [
+        "c",
+        "si",
+        "mn",
+        "p",
+        "s",
+        "ni",
+        "cr",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "n",
+        "nb_ta",
+        "ceq",
+        "temperature_c",
+        "total_alloying_pct",
+        "carbon_equivalent_calc",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "is_elevated_temp"
+    ],
+    "train_metrics": {
+        "MAE": 35.1,
+        "MSE": 1929.95,
+        "RMSE": 43.93,
+        "R2": 0.879
+    },
+    "test_metrics": {
+        "MAE": 43.83,
+        "MSE": 3228.94,
+        "RMSE": 56.82,
+        "R2": 0.7896
+    }
+}

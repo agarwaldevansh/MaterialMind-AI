@@ -1,0 +1,42 @@
+{
+    "model_name": "Decision Tree Regressor",
+    "dataset": "matnavi",
+    "target": "tensile_strength_mpa",
+    "group_column": "alloy_code",
+    "train_samples": 734,
+    "test_samples": 180,
+    "feature_columns": [
+        "c",
+        "si",
+        "mn",
+        "p",
+        "s",
+        "ni",
+        "cr",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "n",
+        "nb_ta",
+        "ceq",
+        "temperature_c",
+        "total_alloying_pct",
+        "carbon_equivalent_calc",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "is_elevated_temp"
+    ],
+    "train_metrics": {
+        "MAE": 21.73,
+        "MSE": 904.33,
+        "RMSE": 30.07,
+        "R2": 0.9433
+    },
+    "test_metrics": {
+        "MAE": 30.35,
+        "MSE": 1671.69,
+        "RMSE": 40.89,
+        "R2": 0.8911
+    }
+}

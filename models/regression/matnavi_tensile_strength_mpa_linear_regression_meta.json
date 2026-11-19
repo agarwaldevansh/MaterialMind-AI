@@ -1,0 +1,42 @@
+{
+    "model_name": "Linear Regression",
+    "dataset": "matnavi",
+    "target": "tensile_strength_mpa",
+    "group_column": "alloy_code",
+    "train_samples": 734,
+    "test_samples": 180,
+    "feature_columns": [
+        "c",
+        "si",
+        "mn",
+        "p",
+        "s",
+        "ni",
+        "cr",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "n",
+        "nb_ta",
+        "ceq",
+        "temperature_c",
+        "total_alloying_pct",
+        "carbon_equivalent_calc",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "is_elevated_temp"
+    ],
+    "train_metrics": {
+        "MAE": 42.76,
+        "MSE": 2826.61,
+        "RMSE": 53.17,
+        "R2": 0.8228
+    },
+    "test_metrics": {
+        "MAE": 46.91,
+        "MSE": 3582.24,
+        "RMSE": 59.85,
+        "R2": 0.7666
+    }
+}

@@ -1,0 +1,148 @@
+{
+    "model_name": "Gaussian Naive Bayes",
+    "dataset": "steel_db",
+    "target": "strength_category",
+    "group_column": "name",
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "classes": [
+        "Low Strength",
+        "Medium Strength",
+        "High Strength"
+    ],
+    "train_metrics": {
+        "Accuracy": 0.4481,
+        "Precision_macro": 0.6549,
+        "Recall_macro": 0.4759,
+        "F1_macro": 0.3809,
+        "Confusion_Matrix": [
+            [
+                210,
+                5,
+                325
+            ],
+            [
+                110,
+                45,
+                1005
+            ],
+            [
+                0,
+                0,
+                918
+            ]
+        ],
+        "Classification_Report": {
+            "Low Strength": {
+                "precision": 0.65625,
+                "recall": 0.3888888888888889,
+                "f1-score": 0.4883720930232558,
+                "support": 540.0
+            },
+            "Medium Strength": {
+                "precision": 0.9,
+                "recall": 0.03879310344827586,
+                "f1-score": 0.0743801652892562,
+                "support": 1160.0
+            },
+            "High Strength": {
+                "precision": 0.4083629893238434,
+                "recall": 1.0,
+                "f1-score": 0.5799115603284902,
+                "support": 918.0
+            },
+            "accuracy": 0.44805194805194803,
+            "macro avg": {
+                "precision": 0.6548709964412811,
+                "recall": 0.47589399744572153,
+                "f1-score": 0.3808879395470008,
+                "support": 2618.0
+            },
+            "weighted avg": {
+                "precision": 0.6773308724978183,
+                "recall": 0.44805194805194803,
+                "f1-score": 0.33703618577144745,
+                "support": 2618.0
+            }
+        }
+    },
+    "test_metrics": {
+        "Accuracy": 0.3896,
+        "Precision_macro": 0.4612,
+        "Recall_macro": 0.4082,
+        "F1_macro": 0.3142,
+        "Confusion_Matrix": [
+            [
+                51,
+                3,
+                100
+            ],
+            [
+                22,
+                3,
+                226
+            ],
+            [
+                25,
+                0,
+                186
+            ]
+        ],
+        "Classification_Report": {
+            "Low Strength": {
+                "precision": 0.5204081632653061,
+                "recall": 0.33116883116883117,
+                "f1-score": 0.40476190476190477,
+                "support": 154.0
+            },
+            "Medium Strength": {
+                "precision": 0.5,
+                "recall": 0.01195219123505976,
+                "f1-score": 0.023346303501945526,
+                "support": 251.0
+            },
+            "High Strength": {
+                "precision": 0.36328125,
+                "recall": 0.8815165876777251,
+                "f1-score": 0.5145228215767634,
+                "support": 211.0
+            },
+            "accuracy": 0.38961038961038963,
+            "macro avg": {
+                "precision": 0.4612298044217687,
+                "recall": 0.40821253669387203,
+                "f1-score": 0.3142103432802046,
+                "support": 616.0
+            },
+            "weighted avg": {
+                "precision": 0.458271430020872,
+                "recall": 0.38961038961038963,
+                "f1-score": 0.28694410854710833,
+                "support": 616.0
+            }
+        }
+    }
+}

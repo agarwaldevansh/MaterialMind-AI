@@ -1,0 +1,45 @@
+{
+    "model_name": "Linear Regression",
+    "dataset": "steel_db",
+    "target": "ductility_pct",
+    "group_column": "name",
+    "train_samples": 2618,
+    "test_samples": 616,
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "train_metrics": {
+        "MAE": 4.15,
+        "MSE": 26.8,
+        "RMSE": 5.18,
+        "R2": 0.1982
+    },
+    "test_metrics": {
+        "MAE": 4.37,
+        "MSE": 30.48,
+        "RMSE": 5.52,
+        "R2": 0.0397
+    }
+}
