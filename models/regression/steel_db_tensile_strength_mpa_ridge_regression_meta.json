@@ -1,0 +1,45 @@
+{
+    "model_name": "Ridge Regression",
+    "dataset": "steel_db",
+    "target": "tensile_strength_mpa",
+    "group_column": "name",
+    "train_samples": 2618,
+    "test_samples": 616,
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "train_metrics": {
+        "MAE": 185.32,
+        "MSE": 58197.67,
+        "RMSE": 241.24,
+        "R2": 0.407
+    },
+    "test_metrics": {
+        "MAE": 246.87,
+        "MSE": 105872.9,
+        "RMSE": 325.38,
+        "R2": -0.0539
+    }
+}

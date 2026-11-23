@@ -1,0 +1,45 @@
+{
+    "model_name": "KNN Regressor",
+    "dataset": "steel_db",
+    "target": "yield_strength_mpa",
+    "group_column": "name",
+    "train_samples": 2618,
+    "test_samples": 616,
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "train_metrics": {
+        "MAE": 137.22,
+        "MSE": 36431.48,
+        "RMSE": 190.87,
+        "R2": 0.6275
+    },
+    "test_metrics": {
+        "MAE": 175.39,
+        "MSE": 57516.8,
+        "RMSE": 239.83,
+        "R2": 0.3638
+    }
+}

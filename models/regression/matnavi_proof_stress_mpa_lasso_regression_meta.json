@@ -1,0 +1,42 @@
+{
+    "model_name": "Lasso Regression",
+    "dataset": "matnavi",
+    "target": "proof_stress_mpa",
+    "group_column": "alloy_code",
+    "train_samples": 734,
+    "test_samples": 180,
+    "feature_columns": [
+        "c",
+        "si",
+        "mn",
+        "p",
+        "s",
+        "ni",
+        "cr",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "n",
+        "nb_ta",
+        "ceq",
+        "temperature_c",
+        "total_alloying_pct",
+        "carbon_equivalent_calc",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "is_elevated_temp"
+    ],
+    "train_metrics": {
+        "MAE": 36.52,
+        "MSE": 2429.6,
+        "RMSE": 49.29,
+        "R2": 0.8578
+    },
+    "test_metrics": {
+        "MAE": 38.37,
+        "MSE": 2839.57,
+        "RMSE": 53.29,
+        "R2": 0.8391
+    }
+}

@@ -1,0 +1,45 @@
+{
+    "model_name": "Lasso Regression",
+    "dataset": "steel_db",
+    "target": "yield_strength_mpa",
+    "group_column": "name",
+    "train_samples": 2618,
+    "test_samples": 616,
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "train_metrics": {
+        "MAE": 194.22,
+        "MSE": 58268.46,
+        "RMSE": 241.39,
+        "R2": 0.4042
+    },
+    "test_metrics": {
+        "MAE": 243.78,
+        "MSE": 94251.74,
+        "RMSE": 307.0,
+        "R2": -0.0425
+    }
+}

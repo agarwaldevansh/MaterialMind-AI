@@ -1,0 +1,150 @@
+{
+    "model_name": "Logistic Regression",
+    "dataset": "steel_db",
+    "target": "strength_category",
+    "group_column": "name",
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "classes": [
+        "Low Strength",
+        "Medium Strength",
+        "High Strength"
+    ],
+    "train_metrics": {
+        "Accuracy": 0.5917,
+        "Precision_macro": 0.6095,
+        "Recall_macro": 0.5777,
+        "F1_macro": 0.5865,
+        "ROC_AUC": null,
+        "Confusion_Matrix": [
+            [
+                307,
+                171,
+                62
+            ],
+            [
+                97,
+                829,
+                234
+            ],
+            [
+                50,
+                455,
+                413
+            ]
+        ],
+        "Classification_Report": {
+            "Low Strength": {
+                "precision": 0.6762114537444934,
+                "recall": 0.5685185185185185,
+                "f1-score": 0.6177062374245473,
+                "support": 540.0
+            },
+            "Medium Strength": {
+                "precision": 0.5697594501718213,
+                "recall": 0.7146551724137931,
+                "f1-score": 0.6340344168260038,
+                "support": 1160.0
+            },
+            "High Strength": {
+                "precision": 0.5825105782792666,
+                "recall": 0.44989106753812635,
+                "f1-score": 0.5076828518746158,
+                "support": 918.0
+            },
+            "accuracy": 0.5916730328495035,
+            "macro avg": {
+                "precision": 0.6094938273985271,
+                "recall": 0.5776882528234792,
+                "f1-score": 0.5864745020417224,
+                "support": 2618.0
+            },
+            "weighted avg": {
+                "precision": 0.596187875508673,
+                "recall": 0.5916730328495035,
+                "f1-score": 0.5863614017373252,
+                "support": 2618.0
+            }
+        }
+    },
+    "test_metrics": {
+        "Accuracy": 0.5049,
+        "Precision_macro": 0.588,
+        "Recall_macro": 0.4797,
+        "F1_macro": 0.4935,
+        "ROC_AUC": 0.7461,
+        "Confusion_Matrix": [
+            [
+                56,
+                81,
+                17
+            ],
+            [
+                13,
+                176,
+                62
+            ],
+            [
+                0,
+                132,
+                79
+            ]
+        ],
+        "Classification_Report": {
+            "Low Strength": {
+                "precision": 0.8115942028985508,
+                "recall": 0.36363636363636365,
+                "f1-score": 0.5022421524663677,
+                "support": 154.0
+            },
+            "Medium Strength": {
+                "precision": 0.4524421593830334,
+                "recall": 0.701195219123506,
+                "f1-score": 0.55,
+                "support": 251.0
+            },
+            "High Strength": {
+                "precision": 0.5,
+                "recall": 0.3744075829383886,
+                "f1-score": 0.4281842818428184,
+                "support": 211.0
+            },
+            "accuracy": 0.5048701298701299,
+            "macro avg": {
+                "precision": 0.5880121207605281,
+                "recall": 0.47974638856608603,
+                "f1-score": 0.49347547810306197,
+                "support": 616.0
+            },
+            "weighted avg": {
+                "precision": 0.558520274758958,
+                "recall": 0.5048701298701299,
+                "f1-score": 0.4963346995919729,
+                "support": 616.0
+            }
+        }
+    }
+}

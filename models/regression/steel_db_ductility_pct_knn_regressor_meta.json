@@ -1,0 +1,45 @@
+{
+    "model_name": "KNN Regressor",
+    "dataset": "steel_db",
+    "target": "ductility_pct",
+    "group_column": "name",
+    "train_samples": 2618,
+    "test_samples": 616,
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "train_metrics": {
+        "MAE": 2.95,
+        "MSE": 17.15,
+        "RMSE": 4.14,
+        "R2": 0.4869
+    },
+    "test_metrics": {
+        "MAE": 3.46,
+        "MSE": 24.18,
+        "RMSE": 4.92,
+        "R2": 0.2382
+    }
+}

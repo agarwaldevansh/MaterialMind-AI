@@ -25,7 +25,8 @@ from sklearn.metrics import (
     recall_score,
     f1_score,
     confusion_matrix,
-    classification_report
+    classification_report,
+    roc_auc_score
 )
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -162,10 +163,10 @@ def evaluate_regression(y_true, y_pred):
     }
 
 
-def evaluate_classification(y_true, y_pred, labels=None):
+def evaluate_classification(y_true, y_pred, y_prob=None, labels=None, prob_classes=None):
     """
     Calculate classification evaluation metrics:
-    Accuracy, Macro Precision, Macro Recall, Macro F1-score, Confusion Matrix.
+    Accuracy, Macro Precision, Macro Recall, Macro F1-score, ROC-AUC, Confusion Matrix.
 
     Returns
     -------
@@ -173,6 +174,8 @@ def evaluate_classification(y_true, y_pred, labels=None):
     """
     if labels is None:
         labels = ["Low Strength", "Medium Strength", "High Strength"]
+    if prob_classes is None:
+        prob_classes = labels
 
     acc = accuracy_score(y_true, y_pred)
     prec = precision_score(y_true, y_pred, labels=labels, average="macro", zero_division=0)
@@ -181,11 +184,20 @@ def evaluate_classification(y_true, y_pred, labels=None):
     cm = confusion_matrix(y_true, y_pred, labels=labels)
     report = classification_report(y_true, y_pred, labels=labels, output_dict=True, zero_division=0)
 
+    roc_auc = None
+    if y_prob is not None:
+        try:
+            # One-vs-Rest macro-averaged ROC-AUC matching estimator class probability columns
+            roc_auc = round(float(roc_auc_score(y_true, y_prob, multi_class="ovr", average="macro", labels=prob_classes)), 4)
+        except Exception:
+            roc_auc = None
+
     return {
         "Accuracy": round(float(acc), 4),
         "Precision_macro": round(float(prec), 4),
         "Recall_macro": round(float(rec), 4),
         "F1_macro": round(float(f1), 4),
+        "ROC_AUC": roc_auc,
         "Confusion_Matrix": cm.tolist(),
         "Classification_Report": report
     }

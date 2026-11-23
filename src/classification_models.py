@@ -11,13 +11,14 @@ The target categories are derived from Tensile Strength.
 Therefore, Tensile Strength, Yield Strength, Ductility, and Yield-to-Tensile Ratio
 are STRICTLY EXCLUDED from input features.
 
-Algorithms implemented:
-1. Decision Tree Classifier (interpretable decision boundaries)
-2. K-Nearest Neighbors Classifier (KNN with standard feature scaling)
-3. Support Vector Machine Classifier (SVM with RBF kernel & standard scaling)
-4. Gaussian Naive Bayes (probabilistic Bayes theorem baseline)
+Algorithms implemented (Unit 4 & 5 AIML Syllabus):
+1. Logistic Regression (linear multinomial classification baseline)
+2. Gaussian Naive Bayes (probabilistic Bayes theorem baseline)
+3. K-Nearest Neighbors Classifier (KNN with standard feature scaling)
+4. Decision Tree Classifier (interpretable Gini impurity decision boundaries)
+5. Support Vector Machine Classifier (SVM with RBF kernel & probability calibration)
 
-Evaluated using: Accuracy, Macro Precision, Macro Recall, Macro F1-score, Confusion Matrix.
+Evaluated using: Accuracy, Macro Precision, Macro Recall, Macro F1-score, ROC-AUC, Confusion Matrix.
 """
 
 import os
@@ -28,6 +29,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
@@ -53,23 +55,27 @@ STRENGTH_CLASSES = ["Low Strength", "Medium Strength", "High Strength"]
 def get_base_classifiers():
     """Returns a dictionary of named base classification estimators."""
     classifiers = {
+        "Logistic Regression": Pipeline([
+            ("scaler", StandardScaler()),
+            ("lr", LogisticRegression(max_iter=2000, random_state=42, C=1.0))
+        ]),
+        "Gaussian Naive Bayes": Pipeline([
+            ("scaler", StandardScaler()),
+            ("gnb", GaussianNB())
+        ]),
+        "K-Nearest Neighbors (KNN)": Pipeline([
+            ("scaler", StandardScaler()),
+            ("knn", KNeighborsClassifier(n_neighbors=5, weights="distance"))
+        ]),
         "Decision Tree": DecisionTreeClassifier(
             max_depth=5,
             min_samples_split=10,
             min_samples_leaf=5,
             random_state=42
         ),
-        "K-Nearest Neighbors (KNN)": Pipeline([
-            ("scaler", StandardScaler()),
-            ("knn", KNeighborsClassifier(n_neighbors=5, weights="distance"))
-        ]),
         "Support Vector Machine (SVM)": Pipeline([
             ("scaler", StandardScaler()),
             ("svm", SVC(kernel="rbf", C=2.0, probability=True, random_state=42))
-        ]),
-        "Gaussian Naive Bayes": Pipeline([
-            ("scaler", StandardScaler()),
-            ("gnb", GaussianNB())
         ])
     }
     return classifiers
@@ -123,6 +129,7 @@ def train_and_evaluate_classifiers(dataset_name="steel_db"):
     results = []
     trained_models = {}
     test_predictions = {}
+    test_probabilities = {}
 
     for name, clf in classifiers.items():
         print(f"\n  Training: {name}...")
@@ -131,14 +138,25 @@ def train_and_evaluate_classifiers(dataset_name="steel_db"):
         y_train_pred = clf.predict(X_train)
         y_test_pred = clf.predict(X_test)
 
-        train_metrics = evaluate_classification(y_train, y_train_pred, labels=STRENGTH_CLASSES)
-        test_metrics = evaluate_classification(y_test, y_test_pred, labels=STRENGTH_CLASSES)
+        # Probabilities for ROC-AUC
+        y_test_prob = None
+        if hasattr(clf, "predict_proba"):
+            try:
+                y_test_prob = clf.predict_proba(X_test)
+            except Exception:
+                pass
+
+        prob_classes = list(clf.classes_) if hasattr(clf, "classes_") else STRENGTH_CLASSES
+        train_metrics = evaluate_classification(y_train, y_train_pred, labels=STRENGTH_CLASSES, prob_classes=prob_classes)
+        test_metrics = evaluate_classification(y_test, y_test_pred, y_prob=y_test_prob, labels=STRENGTH_CLASSES, prob_classes=prob_classes)
 
         trained_models[name] = clf
         test_predictions[name] = y_test_pred
+        test_probabilities[name] = y_test_prob
 
+        roc_display = f"{test_metrics['ROC_AUC']:.4f}" if test_metrics.get("ROC_AUC") is not None else "N/A"
         print(f"    Train Accuracy: {train_metrics['Accuracy']:.4f} | Macro F1: {train_metrics['F1_macro']:.4f}")
-        print(f"    Test  Accuracy: {test_metrics['Accuracy']:.4f} | Macro F1: {test_metrics['F1_macro']:.4f} | Precision: {test_metrics['Precision_macro']:.4f} | Recall: {test_metrics['Recall_macro']:.4f}")
+        print(f"    Test  Accuracy: {test_metrics['Accuracy']:.4f} | Macro F1: {test_metrics['F1_macro']:.4f} | ROC-AUC: {roc_display}")
 
         # Save metadata and model artifact
         metadata = {
@@ -162,6 +180,7 @@ def train_and_evaluate_classifiers(dataset_name="steel_db"):
             "Test_Precision_macro": test_metrics["Precision_macro"],
             "Test_Recall_macro": test_metrics["Recall_macro"],
             "Test_F1_macro": test_metrics["F1_macro"],
+            "Test_ROC_AUC": test_metrics.get("ROC_AUC"),
             "Train_Accuracy": train_metrics["Accuracy"],
             "Train_F1_macro": train_metrics["F1_macro"]
         })
@@ -178,52 +197,60 @@ def plot_class_distribution(counts_series, dataset_name):
     colors = ["#2b5c8f", "#d95f02", "#2ca02c"]
     counts_series.plot(kind="bar", ax=ax, color=colors, edgecolor="black", alpha=0.85)
 
-    ax.set_title("Material Strength Classification — Class Distribution", fontsize=11, fontweight="bold")
+    ax.set_title(f"Material Strength Tier Distribution — {dataset_name}", fontsize=12, fontweight="bold")
     ax.set_xlabel("Strength Category", fontsize=10)
-    ax.set_ylabel("Number of Samples", fontsize=10)
-    ax.grid(axis="y", linestyle="--", alpha=0.6)
-    ax.tick_params(axis="x", rotation=0)
+    ax.set_ylabel("Sample Count (Heats)", fontsize=10)
+    ax.set_xticklabels(counts_series.index, rotation=0, fontsize=9)
+    ax.grid(axis="y", linestyle="--", alpha=0.5)
 
-    for i, v in enumerate(counts_series):
-        pct = v / counts_series.sum() * 100
-        ax.text(i, v + 25, f"{v}\n({pct:.1f}%)", ha="center", fontsize=9, fontweight="bold")
+    for i, count in enumerate(counts_series):
+        ax.text(i, count + 20, f"{count}", ha="center", fontsize=9, fontweight="bold")
 
     plt.tight_layout()
-    chart_path = os.path.join(ASSETS_DIR, f"class_distribution_{dataset_name}.png")
-    plt.savefig(chart_path, dpi=150, bbox_inches="tight")
+    out_file = os.path.join(ASSETS_DIR, f"class_distribution_{dataset_name}.png")
+    plt.savefig(out_file, dpi=150, bbox_inches="tight")
     plt.close()
-    print(f"Saved class distribution chart to: {chart_path}")
+    print(f"  Saved class distribution plot to: {out_file}")
 
 
 def plot_confusion_matrices(y_true, test_preds_dict, dataset_name):
-    """Plot 2x2 grid of confusion matrices for base classifiers."""
-    fig, axes = plt.subplots(2, 2, figsize=(11, 9))
-    axes = axes.flatten()
+    """Plot confusion matrices for base classifiers."""
+    n_models = len(test_preds_dict)
+    fig, axes = plt.subplots(1, n_models, figsize=(4.2 * n_models, 4.2))
+    if n_models == 1:
+        axes = [axes]
 
-    for ax, (name, y_pred) in zip(axes, test_preds_dict.items()):
-        from sklearn.metrics import confusion_matrix
+    from sklearn.metrics import confusion_matrix
+    short_labels = ["Low", "Med", "High"]
+
+    for ax, (model_name, y_pred) in zip(axes, test_preds_dict.items()):
         cm = confusion_matrix(y_true, y_pred, labels=STRENGTH_CLASSES)
-
         sns.heatmap(
-            cm, annot=True, fmt="d", cmap="Blues", cbar=False,
-            xticklabels=["Low", "Medium", "High"],
-            yticklabels=["Low", "Medium", "High"],
-            ax=ax
+            cm,
+            annot=True,
+            fmt="d",
+            cmap="Blues",
+            cbar=False,
+            ax=ax,
+            xticklabels=short_labels,
+            yticklabels=short_labels,
+            annot_kws={"size": 10, "weight": "bold"}
         )
-        ax.set_title(f"{name}", fontsize=11, fontweight="bold")
-        ax.set_xlabel("Predicted Category", fontsize=9)
-        ax.set_ylabel("Actual Category", fontsize=9)
+        ax.set_title(f"{model_name}", fontsize=10, fontweight="bold")
+        ax.set_xlabel("Predicted", fontsize=8)
+        ax.set_ylabel("Actual", fontsize=8)
 
-    plt.suptitle(f"Confusion Matrices — Base Classifiers ({dataset_name})", fontsize=13, fontweight="bold")
+    plt.suptitle(f"Confusion Matrices: Base Classifiers — {dataset_name}", fontsize=13, fontweight="bold")
     plt.tight_layout()
-    chart_path = os.path.join(ASSETS_DIR, f"confusion_matrices_base_{dataset_name}.png")
-    plt.savefig(chart_path, dpi=150, bbox_inches="tight")
+
+    out_file = os.path.join(ASSETS_DIR, f"confusion_matrices_base_{dataset_name}.png")
+    plt.savefig(out_file, dpi=150, bbox_inches="tight")
     plt.close()
-    print(f"Saved confusion matrices to: {chart_path}")
+    print(f"  Saved base confusion matrices to: {out_file}")
 
 
 if __name__ == "__main__":
-    results, _, _, _, _, _, _ = train_and_evaluate_classifiers("steel_db")
-    df_res = pd.DataFrame(results)
-    print("\nClassification Results:")
-    print(df_res.to_string())
+    res, models, X_tr, X_te, y_tr, y_te, feats = train_and_evaluate_classifiers()
+    df_cls = pd.DataFrame(res)
+    print("\nBase Classifier Comparison:")
+    print(df_cls[["Algorithm", "Test_Accuracy", "Test_F1_macro", "Test_ROC_AUC"]].to_string())

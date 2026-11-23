@@ -1,21 +1,41 @@
 Dataset,Target,Algorithm,Test_MAE,Test_MSE,Test_RMSE,Test_R2,Train_R2,Train_RMSE
-steel_db,tensile_strength_mpa,Linear Regression,246.66,106158.97,325.82,-0.0567,0.4072,241.2
+steel_db,tensile_strength_mpa,Simple Linear Regression,249.05,106841.25,326.87,-0.0635,0.0389,307.11
+steel_db,tensile_strength_mpa,Multiple Linear Regression,246.66,106158.97,325.82,-0.0567,0.4072,241.2
 steel_db,tensile_strength_mpa,Polynomial Regression (Deg 2),201.83,140571.94,374.93,-0.3993,0.5974,198.76
+steel_db,tensile_strength_mpa,Ridge Regression,246.87,105872.9,325.38,-0.0539,0.407,241.24
+steel_db,tensile_strength_mpa,Lasso Regression,246.52,105420.34,324.68,-0.0494,0.4069,241.26
+steel_db,tensile_strength_mpa,Elastic Net Regression,227.63,85722.64,292.78,0.1467,0.3691,248.83
 steel_db,tensile_strength_mpa,Decision Tree Regressor,158.97,49257.09,221.94,0.5097,0.6748,178.64
-steel_db,tensile_strength_mpa,Gradient Descent (SGD),260.12,119660.44,345.92,-0.1911,0.3585,250.91
-steel_db,yield_strength_mpa,Linear Regression,244.22,95169.29,308.5,-0.0526,0.4045,241.33
+steel_db,tensile_strength_mpa,KNN Regressor,165.18,58356.55,241.57,0.4191,0.7041,170.41
+steel_db,yield_strength_mpa,Simple Linear Regression,243.93,97345.07,312.0,-0.0767,0.0348,307.24
+steel_db,yield_strength_mpa,Multiple Linear Regression,244.22,95169.29,308.5,-0.0526,0.4045,241.33
 steel_db,yield_strength_mpa,Polynomial Regression (Deg 2),210.2,117720.93,343.1,-0.302,0.5721,204.56
+steel_db,yield_strength_mpa,Ridge Regression,244.37,94942.78,308.13,-0.0501,0.4043,241.36
+steel_db,yield_strength_mpa,Lasso Regression,243.78,94251.74,307.0,-0.0425,0.4042,241.39
+steel_db,yield_strength_mpa,Elastic Net Regression,230.49,80778.17,284.22,0.1066,0.3769,246.86
 steel_db,yield_strength_mpa,Decision Tree Regressor,181.99,67984.65,260.74,0.2481,0.6042,196.73
-steel_db,yield_strength_mpa,Gradient Descent (SGD),254.64,105609.53,324.98,-0.1681,0.3637,249.47
-steel_db,ductility_pct,Linear Regression,4.37,30.48,5.52,0.0397,0.1982,5.18
+steel_db,yield_strength_mpa,KNN Regressor,175.39,57516.8,239.83,0.3638,0.6275,190.87
+steel_db,ductility_pct,Simple Linear Regression,4.33,34.19,5.85,-0.0771,0.0192,5.73
+steel_db,ductility_pct,Multiple Linear Regression,4.37,30.48,5.52,0.0397,0.1982,5.18
 steel_db,ductility_pct,Polynomial Regression (Deg 2),5.83,76.28,8.73,-1.4033,0.3633,4.61
+steel_db,ductility_pct,Ridge Regression,4.38,30.54,5.53,0.0378,0.1981,5.18
+steel_db,ductility_pct,Lasso Regression,4.23,31.04,5.57,0.0219,0.1272,5.4
+steel_db,ductility_pct,Elastic Net Regression,4.23,30.89,5.56,0.0266,0.1417,5.36
 steel_db,ductility_pct,Decision Tree Regressor,4.08,27.4,5.23,0.1367,0.4126,4.43
-steel_db,ductility_pct,Gradient Descent (SGD),4.34,29.99,5.48,0.0552,0.1929,5.19
-matnavi,tensile_strength_mpa,Linear Regression,46.91,3582.24,59.85,0.7666,0.8228,53.17
+steel_db,ductility_pct,KNN Regressor,3.46,24.18,4.92,0.2382,0.4869,4.14
+matnavi,tensile_strength_mpa,Simple Linear Regression,84.22,10219.17,101.09,0.3342,0.3812,99.35
+matnavi,tensile_strength_mpa,Multiple Linear Regression,46.91,3582.24,59.85,0.7666,0.8228,53.17
 matnavi,tensile_strength_mpa,Polynomial Regression (Deg 2),43.83,3228.94,56.82,0.7896,0.879,43.93
+matnavi,tensile_strength_mpa,Ridge Regression,47.08,3555.8,59.63,0.7683,0.821,53.43
+matnavi,tensile_strength_mpa,Lasso Regression,46.63,3465.58,58.87,0.7742,0.8209,53.44
+matnavi,tensile_strength_mpa,Elastic Net Regression,59.76,5012.21,70.8,0.6734,0.7226,66.51
 matnavi,tensile_strength_mpa,Decision Tree Regressor,30.35,1671.69,40.89,0.8911,0.9433,30.07
-matnavi,tensile_strength_mpa,Gradient Descent (SGD),46.87,3534.49,59.45,0.7697,0.82,53.58
-matnavi,proof_stress_mpa,Linear Regression,39.12,2981.74,54.61,0.831,0.8587,49.13
+matnavi,tensile_strength_mpa,KNN Regressor,48.84,4127.65,64.25,0.7311,1.0,0.0
+matnavi,proof_stress_mpa,Simple Linear Regression,112.17,15333.01,123.83,0.131,0.1883,117.74
+matnavi,proof_stress_mpa,Multiple Linear Regression,39.12,2981.74,54.61,0.831,0.8587,49.13
 matnavi,proof_stress_mpa,Polynomial Regression (Deg 2),37.84,2839.92,53.29,0.8391,0.9238,36.08
+matnavi,proof_stress_mpa,Ridge Regression,38.06,2815.16,53.06,0.8405,0.8577,49.31
+matnavi,proof_stress_mpa,Lasso Regression,38.37,2839.57,53.29,0.8391,0.8578,49.29
+matnavi,proof_stress_mpa,Elastic Net Regression,40.01,3062.89,55.34,0.8264,0.8162,56.04
 matnavi,proof_stress_mpa,Decision Tree Regressor,27.61,1617.86,40.22,0.9083,0.9472,30.04
-matnavi,proof_stress_mpa,Gradient Descent (SGD),37.76,2758.17,52.52,0.8437,0.8571,49.4
+matnavi,proof_stress_mpa,KNN Regressor,37.52,3010.12,54.86,0.8294,1.0,0.0

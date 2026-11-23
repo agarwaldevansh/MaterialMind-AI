@@ -1,0 +1,42 @@
+{
+    "model_name": "KNN Regressor",
+    "dataset": "matnavi",
+    "target": "proof_stress_mpa",
+    "group_column": "alloy_code",
+    "train_samples": 734,
+    "test_samples": 180,
+    "feature_columns": [
+        "c",
+        "si",
+        "mn",
+        "p",
+        "s",
+        "ni",
+        "cr",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "n",
+        "nb_ta",
+        "ceq",
+        "temperature_c",
+        "total_alloying_pct",
+        "carbon_equivalent_calc",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "is_elevated_temp"
+    ],
+    "train_metrics": {
+        "MAE": 0.0,
+        "MSE": 0.0,
+        "RMSE": 0.0,
+        "R2": 1.0
+    },
+    "test_metrics": {
+        "MAE": 37.52,
+        "MSE": 3010.12,
+        "RMSE": 54.86,
+        "R2": 0.8294
+    }
+}

@@ -1,11 +1,15 @@
 """
 regression_models.py — Mechanical Property Prediction for MaterialMind AI
 
-Implements four regression approaches to predict continuous mechanical properties:
-1. Linear Regression (baseline multiple linear model)
-2. Polynomial Regression (degree 2 polynomial features to capture nonlinear interactions)
-3. Decision Tree Regressor (rule-based non-linear partitioning)
-4. Gradient Descent Optimization (SGDRegressor minimizing MSE via iterative gradient descent)
+Implements syllabus-aligned regression approaches to predict continuous mechanical properties:
+1. Simple Linear Regression (demonstrating single-feature baseline: CE / temperature)
+2. Multiple Linear Regression (baseline multiple linear model across all features)
+3. Polynomial Regression (degree 2 polynomial features to capture nonlinear interactions)
+4. Ridge Regression (L2 regularization to stabilize collinear alloying coefficients)
+5. Lasso Regression (L1 regularization providing automatic sparsity and feature selection)
+6. Elastic Net Regression (combined L1 + L2 regularization for balanced stability)
+7. Decision Tree Regressor (rule-based non-linear partitioning, Unit 5 Further Reading)
+8. KNN Regressor (instance-based local metallurgical neighborhood averaging, Unit 4 Self Study)
 
 Evaluation Metrics: MAE, MSE, RMSE, R²
 Strict Data Splitting: GroupShuffleSplit on material grade to prevent data leakage.
@@ -17,9 +21,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
-from sklearn.linear_model import LinearRegression, Ridge, SGDRegressor
+from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsRegressor
 from sklearn.metrics import r2_score
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -36,18 +42,22 @@ from model_utils import (
 )
 
 
-def get_regression_models():
+def get_regression_models(dataset_name="steel_db"):
     """
-    Returns a dictionary of named regression pipelines/estimators.
+    Returns a dictionary of named regression pipelines/estimators aligned with AIML syllabus.
+    """
+    single_feature = "carbon_equivalent" if dataset_name == "steel_db" else "temperature_c"
+    simple_selector = ColumnTransformer(
+        [("single_feat", StandardScaler(), [single_feature])],
+        remainder="drop"
+    )
 
-    Notice:
-    - Linear Regression: Scaler + LinearRegression
-    - Polynomial Regression: Degree 2 polynomial features + Ridge (L2 penalty) to avoid multicollinear explosion
-    - Decision Tree: max_depth=6 for good balance of accuracy and explainability
-    - Gradient Descent: Scaler + SGDRegressor with squared error loss (optimization demonstration)
-    """
     models = {
-        "Linear Regression": Pipeline([
+        "Simple Linear Regression": Pipeline([
+            ("selector", simple_selector),
+            ("regressor", LinearRegression())
+        ]),
+        "Multiple Linear Regression": Pipeline([
             ("scaler", StandardScaler()),
             ("regressor", LinearRegression())
         ]),
@@ -56,22 +66,27 @@ def get_regression_models():
             ("poly", PolynomialFeatures(degree=2, interaction_only=True, include_bias=False)),
             ("regressor", Ridge(alpha=50.0, random_state=42))
         ]),
+        "Ridge Regression": Pipeline([
+            ("scaler", StandardScaler()),
+            ("regressor", Ridge(alpha=10.0, random_state=42))
+        ]),
+        "Lasso Regression": Pipeline([
+            ("scaler", StandardScaler()),
+            ("regressor", Lasso(alpha=0.5, max_iter=5000, random_state=42))
+        ]),
+        "Elastic Net Regression": Pipeline([
+            ("scaler", StandardScaler()),
+            ("regressor", ElasticNet(alpha=0.5, l1_ratio=0.5, max_iter=5000, random_state=42))
+        ]),
         "Decision Tree Regressor": DecisionTreeRegressor(
             max_depth=6,
             min_samples_split=10,
             min_samples_leaf=5,
             random_state=42
         ),
-        "Gradient Descent (SGD)": Pipeline([
+        "KNN Regressor": Pipeline([
             ("scaler", StandardScaler()),
-            ("regressor", SGDRegressor(
-                loss="squared_error",
-                penalty="l2",
-                alpha=0.01,
-                max_iter=3000,
-                tol=1e-4,
-                random_state=42
-            ))
+            ("regressor", KNeighborsRegressor(n_neighbors=7, weights="distance"))
         ])
     }
     return models
@@ -79,7 +94,7 @@ def get_regression_models():
 
 def train_and_evaluate_regressors(dataset_name="steel_db", target_col="tensile_strength_mpa"):
     """
-    Train all 4 regression models on a specific dataset and target using GroupShuffleSplit.
+    Train all 8 regression models on a specific dataset and target using GroupShuffleSplit.
 
     Parameters
     ----------
@@ -132,7 +147,7 @@ def train_and_evaluate_regressors(dataset_name="steel_db", target_col="tensile_s
     print(f"  Train shape: {X_train.shape} across {g_train.nunique()} material groups")
     print(f"  Test shape:  {X_test.shape} across {g_test.nunique()} material groups")
 
-    models = get_regression_models()
+    models = get_regression_models(dataset_name)
     results = []
 
     # Store predictions for plotting
@@ -151,8 +166,8 @@ def train_and_evaluate_regressors(dataset_name="steel_db", target_col="tensile_s
 
         predictions_dict[model_name] = y_test_pred
 
-        print(f"    Train R2: {train_metrics['R2']:.4f} | RMSE: {train_metrics['RMSE']:.2f} MPa")
-        print(f"    Test  R2: {test_metrics['R2']:.4f} | RMSE: {test_metrics['RMSE']:.2f} MPa | MAE: {test_metrics['MAE']:.2f}")
+        print(f"    Train R2: {train_metrics['R2']:.4f} | RMSE: {train_metrics['RMSE']:.2f}")
+        print(f"    Test  R2: {test_metrics['R2']:.4f} | RMSE: {test_metrics['RMSE']:.2f} | MAE: {test_metrics['MAE']:.2f}")
 
         # Model metadata
         metadata = {
@@ -195,28 +210,31 @@ def train_and_evaluate_regressors(dataset_name="steel_db", target_col="tensile_s
 
 
 def plot_regression_actual_vs_predicted(y_true, preds_dict, dataset_name, target_col):
-    """Generate 2x2 subplot of Actual vs. Predicted values for the 4 algorithms."""
-    fig, axes = plt.subplots(2, 2, figsize=(11, 10))
+    """Generate 2x4 subplot of Actual vs. Predicted values for the 8 algorithms."""
+    fig, axes = plt.subplots(2, 4, figsize=(20, 10))
     axes = axes.flatten()
 
     min_val = min(y_true.min(), min(p.min() for p in preds_dict.values()))
     max_val = max(y_true.max(), max(p.max() for p in preds_dict.values()))
 
-    colors = ["#2b5c8f", "#d95f02", "#2ca02c", "#7570b3"]
+    colors = [
+        "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728",
+        "#9467bd", "#8c564b", "#e377c2", "#17becf"
+    ]
 
     for ax, (model_name, y_pred), color in zip(axes, preds_dict.items(), colors):
         r2 = r2_score(y_true, y_pred)
-        ax.scatter(y_true, y_pred, alpha=0.45, color=color, edgecolors="black", linewidth=0.3, s=28)
+        ax.scatter(y_true, y_pred, alpha=0.45, color=color, edgecolors="black", linewidth=0.3, s=26)
         # 45-degree ideal prediction line
         ax.plot([min_val, max_val], [min_val, max_val], "r--", linewidth=1.5, label="Perfect Fit (y = x)")
 
         ax.set_title(f"{model_name}\n(Test R² = {r2:.3f})", fontsize=10, fontweight="bold")
-        ax.set_xlabel(f"Actual {target_col}", fontsize=9)
-        ax.set_ylabel(f"Predicted {target_col}", fontsize=9)
+        ax.set_xlabel(f"Actual {target_col}", fontsize=8)
+        ax.set_ylabel(f"Predicted {target_col}", fontsize=8)
         ax.grid(True, linestyle="--", alpha=0.5)
-        ax.legend(fontsize=8, loc="upper left")
+        ax.legend(fontsize=7, loc="upper left")
 
-    plt.suptitle(f"Regression: Actual vs. Predicted — {dataset_name} ({target_col})", fontsize=13, fontweight="bold")
+    plt.suptitle(f"Regression: Actual vs. Predicted — {dataset_name} ({target_col})", fontsize=14, fontweight="bold")
     plt.tight_layout()
 
     out_file = os.path.join(ASSETS_DIR, f"reg_actual_vs_pred_{dataset_name}_{target_col}.png")
@@ -226,11 +244,14 @@ def plot_regression_actual_vs_predicted(y_true, preds_dict, dataset_name, target
 
 
 def plot_regression_residuals(y_true, preds_dict, dataset_name, target_col):
-    """Generate residual distribution plots (Residual = Actual - Predicted)."""
-    fig, axes = plt.subplots(2, 2, figsize=(11, 8))
+    """Generate residual distribution plots (Residual = Actual - Predicted) for 8 algorithms."""
+    fig, axes = plt.subplots(2, 4, figsize=(20, 9))
     axes = axes.flatten()
 
-    colors = ["#2b5c8f", "#d95f02", "#2ca02c", "#7570b3"]
+    colors = [
+        "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728",
+        "#9467bd", "#8c564b", "#e377c2", "#17becf"
+    ]
 
     for ax, (model_name, y_pred), color in zip(axes, preds_dict.items(), colors):
         residuals = y_true - y_pred
@@ -239,12 +260,12 @@ def plot_regression_residuals(y_true, preds_dict, dataset_name, target_col):
 
         mean_res = residuals.mean()
         std_res = residuals.std()
-        ax.set_title(f"{model_name} Residuals\nMean: {mean_res:.1f}, Std: {std_res:.1f}", fontsize=10, fontweight="bold")
-        ax.set_xlabel(f"Residual Error ({target_col})", fontsize=9)
-        ax.set_ylabel("Frequency", fontsize=9)
+        ax.set_title(f"{model_name}\nMean: {mean_res:.1f}, Std: {std_res:.1f}", fontsize=9, fontweight="bold")
+        ax.set_xlabel(f"Residual Error ({target_col})", fontsize=8)
+        ax.set_ylabel("Frequency", fontsize=8)
         ax.grid(True, linestyle="--", alpha=0.5)
 
-    plt.suptitle(f"Residual Error Distributions — {dataset_name} ({target_col})", fontsize=13, fontweight="bold")
+    plt.suptitle(f"Residual Error Distributions — {dataset_name} ({target_col})", fontsize=14, fontweight="bold")
     plt.tight_layout()
 
     out_file = os.path.join(ASSETS_DIR, f"reg_residuals_{dataset_name}_{target_col}.png")
@@ -255,73 +276,38 @@ def plot_regression_residuals(y_true, preds_dict, dataset_name, target_col):
 
 def run_all_regressions():
     """
-    Run the full regression suite across both datasets:
-    - Dataset 1 (Steel DB): tensile_strength_mpa, yield_strength_mpa, ductility_pct
-    - Dataset 2 (MatNavi): tensile_strength_mpa, proof_stress_mpa
+    Executes regression training across all 5 mechanical targets:
+    Steel DB: Tensile Strength, Yield Strength, Ductility.
+    MatNavi: Tensile Strength, Proof Stress.
     """
     print("\n" + "=" * 70)
-    print("STARTING COMPLETE REGRESSION EXPERIMENTS")
+    print("STARTING COMPLETE SYLLABUS-ALIGNED REGRESSION PIPELINE")
     print("=" * 70)
 
     all_results = []
 
-    # Dataset 1 targets
-    for target in ["tensile_strength_mpa", "yield_strength_mpa", "ductility_pct"]:
-        res = train_and_evaluate_regressors("steel_db", target)
+    # 1. Steel DB Targets
+    steel_targets = ["tensile_strength_mpa", "yield_strength_mpa", "ductility_pct"]
+    for target in steel_targets:
+        res = train_and_evaluate_regressors(dataset_name="steel_db", target_col=target)
         all_results.extend(res)
 
-    # Dataset 2 targets
-    for target in ["tensile_strength_mpa", "proof_stress_mpa"]:
-        res = train_and_evaluate_regressors("matnavi", target)
+    # 2. MatNavi Targets
+    matnavi_targets = ["tensile_strength_mpa", "proof_stress_mpa"]
+    for target in matnavi_targets:
+        res = train_and_evaluate_regressors(dataset_name="matnavi", target_col=target)
         all_results.extend(res)
 
-    # Save summary table
+    # Compile Summary Comparison Table
     summary_df = pd.DataFrame(all_results)
     out_csv = os.path.join(PROCESSED_DIR, "regression_model_comparison.csv")
     summary_df.to_csv(out_csv, index=False)
-    print(f"\nSaved regression model comparison table to: {out_csv}")
-    print("\nSummary of Regression Performance:")
-    print(summary_df.to_string())
-
-    # Plot model comparison bar chart
-    plot_regression_model_comparison_chart(summary_df)
-
+    print(f"\nSaved master regression comparison table to: {out_csv}")
+    print("\nRegression Pipeline Completed Successfully!")
     return summary_df
 
 
-def plot_regression_model_comparison_chart(summary_df):
-    """Plot comparative R2 and RMSE across all algorithms and targets."""
-    # Filter for steel_db tensile strength for a clean focused comparison chart
-    sub = summary_df[(summary_df["Dataset"] == "steel_db") & (summary_df["Target"] == "tensile_strength_mpa")]
-
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.5))
-
-    # Test R2 comparison
-    ax1.bar(sub["Algorithm"], sub["Test_R2"], color="#2b5c8f", edgecolor="black", alpha=0.85)
-    ax1.set_title("Test R² Score (Higher is Better)", fontsize=11, fontweight="bold")
-    ax1.set_ylabel("R² Score", fontsize=9)
-    ax1.set_ylim(0, 1.0)
-    ax1.grid(axis="y", linestyle="--", alpha=0.6)
-    ax1.tick_params(axis="x", rotation=30)
-    for i, v in enumerate(sub["Test_R2"]):
-        ax1.text(i, v + 0.02, f"{v:.3f}", ha="center", fontsize=8.5, fontweight="bold")
-
-    # Test RMSE comparison
-    ax2.bar(sub["Algorithm"], sub["Test_RMSE"], color="#d95f02", edgecolor="black", alpha=0.85)
-    ax2.set_title("Test RMSE in MPa (Lower is Better)", fontsize=11, fontweight="bold")
-    ax2.set_ylabel("RMSE (MPa)", fontsize=9)
-    ax2.grid(axis="y", linestyle="--", alpha=0.6)
-    ax2.tick_params(axis="x", rotation=30)
-    for i, v in enumerate(sub["Test_RMSE"]):
-        ax2.text(i, v + 5, f"{v:.1f}", ha="center", fontsize=8.5, fontweight="bold")
-
-    plt.suptitle("Regression Algorithm Comparison — Tensile Strength (Steel DB)", fontsize=13, fontweight="bold")
-    plt.tight_layout()
-    chart_path = os.path.join(ASSETS_DIR, "regression_model_comparison.png")
-    plt.savefig(chart_path, dpi=150, bbox_inches="tight")
-    plt.close()
-    print(f"Saved regression comparison chart to: {chart_path}")
-
-
 if __name__ == "__main__":
-    run_all_regressions()
+    df_res = run_all_regressions()
+    print("\nSummary Results Preview:")
+    print(df_res[["Dataset", "Target", "Algorithm", "Test_RMSE", "Test_R2"]].to_string())

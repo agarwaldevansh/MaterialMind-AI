@@ -1,0 +1,42 @@
+{
+    "model_name": "Elastic Net Regression",
+    "dataset": "matnavi",
+    "target": "tensile_strength_mpa",
+    "group_column": "alloy_code",
+    "train_samples": 734,
+    "test_samples": 180,
+    "feature_columns": [
+        "c",
+        "si",
+        "mn",
+        "p",
+        "s",
+        "ni",
+        "cr",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "n",
+        "nb_ta",
+        "ceq",
+        "temperature_c",
+        "total_alloying_pct",
+        "carbon_equivalent_calc",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "is_elevated_temp"
+    ],
+    "train_metrics": {
+        "MAE": 54.75,
+        "MSE": 4423.79,
+        "RMSE": 66.51,
+        "R2": 0.7226
+    },
+    "test_metrics": {
+        "MAE": 59.76,
+        "MSE": 5012.21,
+        "RMSE": 70.8,
+        "R2": 0.6734
+    }
+}

@@ -38,6 +38,7 @@
         "Precision_macro": 0.7656,
         "Recall_macro": 0.7505,
         "F1_macro": 0.7535,
+        "ROC_AUC": null,
         "Confusion_Matrix": [
             [
                 418,
@@ -94,6 +95,7 @@
         "Precision_macro": 0.6438,
         "Recall_macro": 0.6528,
         "F1_macro": 0.6316,
+        "ROC_AUC": 0.8004,
         "Confusion_Matrix": [
             [
                 112,

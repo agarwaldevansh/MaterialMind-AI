@@ -1,0 +1,45 @@
+{
+    "model_name": "Elastic Net Regression",
+    "dataset": "steel_db",
+    "target": "yield_strength_mpa",
+    "group_column": "name",
+    "train_samples": 2618,
+    "test_samples": 616,
+    "feature_columns": [
+        "c",
+        "mn",
+        "si",
+        "cr",
+        "ni",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "ti",
+        "s",
+        "p",
+        "fe",
+        "co",
+        "nb",
+        "b",
+        "n",
+        "zr",
+        "total_alloying_pct",
+        "carbon_equivalent",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "ni_cr_total"
+    ],
+    "train_metrics": {
+        "MAE": 199.94,
+        "MSE": 60937.61,
+        "RMSE": 246.86,
+        "R2": 0.3769
+    },
+    "test_metrics": {
+        "MAE": 230.49,
+        "MSE": 80778.17,
+        "RMSE": 284.22,
+        "R2": 0.1066
+    }
+}

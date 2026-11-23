@@ -49,7 +49,7 @@ def verify_saved_models():
     print("=" * 70)
 
     # 1. Verify Regression model
-    reg_filename = "steel_db_tensile_strength_mpa_linear_regression.joblib"
+    reg_filename = "steel_db_tensile_strength_mpa_multiple_linear_regression.joblib"
     print(f"Loading Regression Model: {reg_filename}...")
     reg_model, reg_meta = load_model_artifact(reg_filename, subfolder="regression")
     assert reg_model is not None, "Failed to load regression model!"

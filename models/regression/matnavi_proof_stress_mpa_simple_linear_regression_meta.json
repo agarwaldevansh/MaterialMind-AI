@@ -1,0 +1,42 @@
+{
+    "model_name": "Simple Linear Regression",
+    "dataset": "matnavi",
+    "target": "proof_stress_mpa",
+    "group_column": "alloy_code",
+    "train_samples": 734,
+    "test_samples": 180,
+    "feature_columns": [
+        "c",
+        "si",
+        "mn",
+        "p",
+        "s",
+        "ni",
+        "cr",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "n",
+        "nb_ta",
+        "ceq",
+        "temperature_c",
+        "total_alloying_pct",
+        "carbon_equivalent_calc",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "is_elevated_temp"
+    ],
+    "train_metrics": {
+        "MAE": 102.34,
+        "MSE": 13863.4,
+        "RMSE": 117.74,
+        "R2": 0.1883
+    },
+    "test_metrics": {
+        "MAE": 112.17,
+        "MSE": 15333.01,
+        "RMSE": 123.83,
+        "R2": 0.131
+    }
+}

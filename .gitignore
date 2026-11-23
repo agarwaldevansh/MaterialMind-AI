@@ -1,82 +1,83 @@
-# Byte-compiled / optimized / DLL files
+# ==============================================================================
+# MaterialMind AI — Git Ignore Specification
+# ==============================================================================
+
+# 1. Byte-compiled / optimized / cache files
 __pycache__/
 *.py[cod]
 *$py.class
+src/__pycache__/
 
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual Environments
-venv/
+# 2. Virtual Environments
 .venv/
+venv/
 env/
 ENV/
 env.bak/
 venv.bak/
 
-# Unit test / coverage reports
+# 3. Unit test / coverage / test caches
+.pytest_cache/
 htmlcov/
 .tox/
 .nox/
 .coverage
 .coverage.*
-.cache
+.cache/
 nosetests.xml
 coverage.xml
 *.cover
 *.py,cover
 .hypothesis/
-.pytest_cache/
 
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints
-
-# Environment variables & secrets
+# 4. Environment variables & secrets
 .env
 .env.*
 !.env.example
 .streamlit/secrets.toml
 
-# Operating System files
+# 5. Operating System files
 .DS_Store
 Thumbs.db
 ehthumbs.db
 [Dd]esktop.ini
 
-# IDE & Editor caches
+# 6. IDE & Local Editor caches
 .idea/
 .vscode/
 *.swp
 *.swo
 *~
 
-# Preserved project directories (Do NOT ignore)
+# 7. Temporary log & debug text files
+*.log
+debug_*.txt
+
+# 8. Temporary development & debugging screenshots / local capture scripts
+assets/debug_crop.png
+assets/port_8501_actual_user_view.png
+assets/about_architecture_diagram_rendered.png
+src/capture_about_screenshot.py
+
+# 9. Academic and Internal Development Reports (Preserved locally, excluded from Git)
+ALGORITHM_EXPLANATION.md
+FINAL_DEBUGGING_REPORT.md
+FINAL_DEPLOYMENT_READINESS_REPORT.md
+FINAL_PROJECT_REPORT.md
+LIGHT_THEME_REDESIGN_REPORT.md
+MODEL_EXPLANATION.md
+STEP_1_REPORT.md
+STEP_2_REPORT.md
+STEP_2_VALIDATION_REPORT.md
+STEP_3_REPORT.md
+UI_REDESIGN_REPORT.md
+
+# 10. Explicitly Preserved Core Application Files & Directories (Do NOT ignore)
+!README.md
+!app.py
+!ui_helpers.py
+!requirements.txt
 !data/
-!data/raw/
-!data/processed/
+!data/**
 !models/
-!models/regression/
-!models/classification/
-!models/clustering/
-!models/pca/
-!assets/
+!models/**

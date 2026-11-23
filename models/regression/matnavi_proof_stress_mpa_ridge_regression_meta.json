@@ -1,0 +1,42 @@
+{
+    "model_name": "Ridge Regression",
+    "dataset": "matnavi",
+    "target": "proof_stress_mpa",
+    "group_column": "alloy_code",
+    "train_samples": 734,
+    "test_samples": 180,
+    "feature_columns": [
+        "c",
+        "si",
+        "mn",
+        "p",
+        "s",
+        "ni",
+        "cr",
+        "mo",
+        "cu",
+        "v",
+        "al",
+        "n",
+        "nb_ta",
+        "ceq",
+        "temperature_c",
+        "total_alloying_pct",
+        "carbon_equivalent_calc",
+        "mn_c_ratio",
+        "cr_mo_total",
+        "is_elevated_temp"
+    ],
+    "train_metrics": {
+        "MAE": 36.47,
+        "MSE": 2431.03,
+        "RMSE": 49.31,
+        "R2": 0.8577
+    },
+    "test_metrics": {
+        "MAE": 38.06,
+        "MSE": 2815.16,
+        "RMSE": 53.06,
+        "R2": 0.8405
+    }
+}
